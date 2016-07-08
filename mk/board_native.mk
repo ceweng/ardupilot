@@ -62,7 +62,11 @@ ifneq ($(SYSTYPE),Darwin)
 LDFLAGS        +=   -Wl,--gc-sections -Wl,-Map -Wl,$(SKETCHMAP)
 endif
 
-LIBS ?= -lm -lrt -pthread
+LIBS ?= -lm -pthread
+
+ifneq ($(SYSTYPE),Darwin)
+LIBS += -lrt
+endif
 ifneq ($(findstring CYGWIN, $(SYSTYPE)),)
 LIBS += -lwinmm
 endif
