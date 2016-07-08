@@ -7,7 +7,11 @@ bool Copter::start_command(const AP_Mission::Mission_Command& cmd)
 {
     // To-Do: logging when new commands start/end
     if (should_log(MASK_LOG_CMD)) {
+<<<<<<< HEAD:ArduCopter/commands_logic.pde
+        Log_Write_Cmd(cmd);
+=======
         DataFlash.Log_Write_Mission_Cmd(mission, cmd);
+>>>>>>> refs/remotes/origin/master:ArduCopter/commands_logic.cpp
     }
 
     switch(cmd.id) {
@@ -131,6 +135,8 @@ bool Copter::start_command(const AP_Mission::Mission_Command& cmd)
 #if PARACHUTE == ENABLED
     case MAV_CMD_DO_PARACHUTE:                          // Mission command to configure or release parachute
         do_parachute(cmd);
+<<<<<<< HEAD:ArduCopter/commands_logic.pde
+=======
         break;
 #endif
 
@@ -143,6 +149,7 @@ bool Copter::start_command(const AP_Mission::Mission_Command& cmd)
 #if NAV_GUIDED == ENABLED
     case MAV_CMD_DO_GUIDED_LIMITS:                      // 220  accept guided mode limits
         do_guided_limits(cmd);
+>>>>>>> refs/remotes/origin/master:ArduCopter/commands_logic.cpp
         break;
 #endif
 
@@ -932,6 +939,11 @@ void Copter::do_digicam_control(const AP_Mission::Mission_Command& cmd)
 void Copter::do_take_picture()
 {
 #if CAMERA == ENABLED
+<<<<<<< HEAD:ArduCopter/commands_logic.pde
+    camera.trigger_pic();
+    if (should_log(MASK_LOG_CAMERA)) {
+        DataFlash.Log_Write_Camera(ahrs, gps, current_loc);
+=======
     camera.trigger_pic(true);
     log_picture();
 #endif
@@ -949,6 +961,7 @@ void Copter::log_picture()
         if (should_log(MASK_LOG_CAMERA)) {
             DataFlash.Log_Write_Trigger(ahrs, gps, current_loc);
         }      
+>>>>>>> refs/remotes/origin/master:ArduCopter/commands_logic.cpp
     }
 }
 

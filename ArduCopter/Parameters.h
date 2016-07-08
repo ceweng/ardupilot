@@ -128,12 +128,17 @@ public:
         k_param_acro_expo,
         k_param_throttle_deadzone,
         k_param_optflow,
+<<<<<<< HEAD
+        k_param_dcmcheck_thresh,        // 59
+        k_param_log_bitmask,
+=======
         k_param_dcmcheck_thresh,        // deprecated - remove
         k_param_log_bitmask,
         k_param_cli_enabled,
         k_param_throttle_filt,
         k_param_throttle_behavior,
         k_param_pilot_takeoff_alt, // 64
+>>>>>>> refs/remotes/origin/master
 
         // 65: AP_Limits Library
         k_param_limits = 65,            // deprecated - remove
@@ -417,6 +422,11 @@ public:
     //
     AP_Int8         failsafe_throttle;
     AP_Int16        failsafe_throttle_value;
+<<<<<<< HEAD
+    AP_Int16        throttle_cruise;
+    AP_Int16        throttle_mid;
+=======
+>>>>>>> refs/remotes/origin/master
     AP_Int16        throttle_deadzone;
 
     // Flight modes
@@ -447,10 +457,26 @@ public:
     AP_Int8         disarm_delay;
 
     AP_Int8         land_repositioning;
+<<<<<<< HEAD
+    AP_Float        ekfcheck_thresh;
+    AP_Float        dcmcheck_thresh;
+
+#if FRAME_CONFIG ==     HELI_FRAME
+    // Heli
+    RC_Channel      heli_servo_1, heli_servo_2, heli_servo_3, heli_servo_4;     // servos for swash plate and tail
+    AP_Int16        heli_stab_col_min;                                          // min collective while pilot directly controls collective in stabilize mode
+    AP_Int16        heli_stab_col_max;                                          // min collective while pilot directly controls collective in stabilize mode
+#endif
+#if FRAME_CONFIG ==     SINGLE_FRAME
+    // Single
+    RC_Channel      single_servo_1, single_servo_2, single_servo_3, single_servo_4;     // servos for four flaps
+#endif
+=======
     AP_Int8         fs_ekf_action;
     AP_Int8         fs_crash_check;
     AP_Float        fs_ekf_thresh;
     AP_Int16        gcs_pid_mask;
+>>>>>>> refs/remotes/origin/master
 
     AP_Int8         throw_motor_start;
     AP_Int8         terrain_follow;

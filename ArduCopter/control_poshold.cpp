@@ -178,7 +178,11 @@ void Copter::poshold_run()
     }
 
     // relax loiter target if we might be landed
+<<<<<<< HEAD:ArduCopter/control_poshold.pde
+    if (land_complete_maybe()) {
+=======
     if (ap.land_complete_maybe) {
+>>>>>>> refs/remotes/origin/master:ArduCopter/control_poshold.cpp
         wp_nav.loiter_soften_for_landing();
     }
 

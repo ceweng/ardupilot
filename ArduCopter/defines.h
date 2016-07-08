@@ -201,10 +201,17 @@ enum AutoMode {
 // Guided modes
 enum GuidedMode {
     Guided_TakeOff,
+<<<<<<< HEAD
+    Guided_WP
+#if NAV_GUIDED == ENABLED
+    ,Guided_Velocity
+#endif
+=======
     Guided_WP,
     Guided_Velocity,
     Guided_PosVel,
     Guided_Angle,
+>>>>>>> refs/remotes/origin/master
 };
 
 // RTL states
@@ -298,6 +305,54 @@ enum ThrowModeState {
 #define MASK_LOG_COMPASS                (1<<13)
 #define MASK_LOG_INAV                   (1<<14) // deprecated
 #define MASK_LOG_CAMERA                 (1<<15)
+<<<<<<< HEAD
+#define MASK_LOG_WHEN_DISARMED          (1UL<<16)
+#define MASK_LOG_ANY                    0xFFFF
+
+// DATA - event logging
+#define DATA_MAVLINK_FLOAT              1
+#define DATA_MAVLINK_INT32              2
+#define DATA_MAVLINK_INT16              3
+#define DATA_MAVLINK_INT8               4
+#define DATA_AP_STATE                   7
+#define DATA_INIT_SIMPLE_BEARING        9
+#define DATA_ARMED                      10
+#define DATA_DISARMED                   11
+#define DATA_AUTO_ARMED                 15
+#define DATA_TAKEOFF                    16
+#define DATA_LAND_COMPLETE_MAYBE        17
+#define DATA_LAND_COMPLETE              18
+#define DATA_NOT_LANDED                 28
+#define DATA_LOST_GPS                   19
+#define DATA_FLIP_START                 21
+#define DATA_FLIP_END                   22
+#define DATA_SET_HOME                   25
+#define DATA_SET_SIMPLE_ON              26
+#define DATA_SET_SIMPLE_OFF             27
+#define DATA_SET_SUPERSIMPLE_ON         29
+#define DATA_AUTOTUNE_INITIALISED       30
+#define DATA_AUTOTUNE_OFF               31
+#define DATA_AUTOTUNE_RESTART           32
+#define DATA_AUTOTUNE_SUCCESS           33
+#define DATA_AUTOTUNE_FAILED            34
+#define DATA_AUTOTUNE_REACHED_LIMIT     35
+#define DATA_AUTOTUNE_PILOT_TESTING     36
+#define DATA_AUTOTUNE_SAVEDGAINS        37
+#define DATA_SAVE_TRIM                  38
+#define DATA_SAVEWP_ADD_WP              39
+#define DATA_SAVEWP_CLEAR_MISSION_RTL   40
+#define DATA_FENCE_ENABLE               41
+#define DATA_FENCE_DISABLE              42
+#define DATA_ACRO_TRAINER_DISABLED      43
+#define DATA_ACRO_TRAINER_LEVELING      44
+#define DATA_ACRO_TRAINER_LIMITED       45
+#define DATA_EPM_ON                     46
+#define DATA_EPM_OFF                    47
+#define DATA_EPM_NEUTRAL                48
+#define DATA_PARACHUTE_DISABLED         49
+#define DATA_PARACHUTE_ENABLED          50
+#define DATA_PARACHUTE_RELEASED         51
+=======
 #define MASK_LOG_MOTBATT                (1UL<<17)
 #define MASK_LOG_IMU_FAST               (1UL<<18)
 #define MASK_LOG_IMU_RAW                (1UL<<19)
@@ -351,6 +406,7 @@ enum ThrowModeState {
 #define DATA_EKF_ALT_RESET                  60
 #define DATA_LAND_CANCELLED_BY_PILOT        61
 #define DATA_EKF_YAW_RESET                  62
+>>>>>>> refs/remotes/origin/master
 
 // Centi-degrees to radians
 #define DEGX100 5729.57795f
@@ -371,7 +427,11 @@ enum ThrowModeState {
 #define ERROR_SUBSYSTEM_FLIP                13
 #define ERROR_SUBSYSTEM_AUTOTUNE            14
 #define ERROR_SUBSYSTEM_PARACHUTE           15
+<<<<<<< HEAD
+#define ERROR_SUBSYSTEM_EKFINAV_CHECK       16
+=======
 #define ERROR_SUBSYSTEM_EKFCHECK            16
+>>>>>>> refs/remotes/origin/master
 #define ERROR_SUBSYSTEM_FAILSAFE_EKFINAV    17
 #define ERROR_SUBSYSTEM_BARO                18
 #define ERROR_SUBSYSTEM_CPU                 19
@@ -409,8 +469,13 @@ enum ThrowModeState {
 #define ERROR_CODE_PARACHUTE_TOO_LOW        2
 #define ERROR_CODE_PARACHUTE_LANDED         3
 // EKF check definitions
+<<<<<<< HEAD
+#define ERROR_CODE_EKFINAV_CHECK_BAD_VARIANCE       2
+#define ERROR_CODE_EKFINAV_CHECK_VARIANCE_CLEARED   0
+=======
 #define ERROR_CODE_EKFCHECK_BAD_VARIANCE       2
 #define ERROR_CODE_EKFCHECK_VARIANCE_CLEARED   0
+>>>>>>> refs/remotes/origin/master
 // Baro specific error codes
 #define ERROR_CODE_BARO_GLITCH              2
 

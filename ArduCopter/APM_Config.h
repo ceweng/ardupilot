@@ -18,7 +18,11 @@
  *  COAX_FRAME
  */
 
+<<<<<<< HEAD
+// uncomment the lines below to save on flash space if compiling for the APM using Arduino IDE.  Top items save the most flash space
+=======
 // uncomment the lines below to disable features (flash sizes listed are for APM2 boards and will underestimate savings on Pixhawk and other boards)
+>>>>>>> refs/remotes/origin/master
 //#define LOGGING_ENABLED       DISABLED            // disable dataflash logging to save 11K of flash space
 //#define MOUNT                 DISABLED            // disable the camera gimbal to save 8K of flash space
 //#define AUTOTUNE_ENABLED      DISABLED            // disable the auto tune functionality to save 7k of flash
@@ -26,6 +30,13 @@
 //#define CAMERA                DISABLED            // disable camera trigger to save 1k of flash
 //#define RANGEFINDER_ENABLED   DISABLED            // disable rangefinder to save 1k of flash
 //#define POSHOLD_ENABLED       DISABLED            // disable PosHold flight mode to save 4.5k of flash
+<<<<<<< HEAD
+
+// features below are disabled by default on APM (but enabled on Pixhawk)
+//#define AC_RALLY              ENABLED             // disable rally points to save 2k of flash, and also frees rally point EEPROM for more mission commands
+//#define PARACHUTE             ENABLED             // enable parachute release at a cost of 1k of flash
+//#define CLI_ENABLED           ENABLED             // enable the CLI (command-line-interface) at a cost of 21K of flash space
+=======
 //#define AC_RALLY              DISABLED            // disable rally points library (must also disable terrain which relies on rally)
 //#define AC_TERRAIN            DISABLED            // disable terrain library
 //#define PARACHUTE             DISABLED            // disable parachute release to save 1k of flash
@@ -36,6 +47,7 @@
 //#define FRSKY_TELEM_ENABLED   DISABLED            // disable FRSky telemetry
 //#define ADSB_ENABLED          DISABLED            // disable ADSB support
 //#define PRECISION_LANDING     DISABLED            // disable precision landing using companion computer or IRLock sensor
+>>>>>>> refs/remotes/origin/master
 
 // features below are disabled by default on all boards
 //#define SPRAYER               ENABLED             // enable the crop sprayer feature (two ESC controlled pumps the speed of which depends upon the vehicle's horizontal velocity)

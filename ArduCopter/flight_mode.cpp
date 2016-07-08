@@ -278,6 +278,15 @@ void Copter::exit_mode(control_mode_t old_control_mode, control_mode_t new_contr
             input_manager.set_stab_col_ramp(0.0);
         }
     }
+<<<<<<< HEAD:ArduCopter/flight_mode.pde
+    
+#if FRAME_CONFIG == HELI_FRAME
+    // firmly reset the flybar passthrough to false when exiting acro mode.
+    if (old_control_mode == ACRO) {
+        attitude_control.use_flybar_passthrough(false);
+    }
+=======
+>>>>>>> refs/remotes/origin/master:ArduCopter/flight_mode.cpp
 #endif //HELI_FRAME
 }
 
@@ -316,13 +325,20 @@ bool Copter::mode_has_manual_throttle(control_mode_t mode) {
 
 // mode_allows_arming - returns true if vehicle can be armed in the specified mode
 //  arming_from_gcs should be set to true if the arming request comes from the ground station
+<<<<<<< HEAD:ArduCopter/flight_mode.pde
+static bool mode_allows_arming(uint8_t mode, bool arming_from_gcs) {
+    if (manual_flight_mode(mode) || mode == LOITER || mode == ALT_HOLD || mode == POSHOLD || (arming_from_gcs && mode == GUIDED)) {
+=======
 bool Copter::mode_allows_arming(control_mode_t mode, bool arming_from_gcs) {
     if (mode_has_manual_throttle(mode) || mode == LOITER || mode == ALT_HOLD || mode == POSHOLD || mode == DRIFT || mode == SPORT || mode == THROW || (arming_from_gcs && mode == GUIDED)) {
+>>>>>>> refs/remotes/origin/master:ArduCopter/flight_mode.cpp
         return true;
     }
     return false;
 }
 
+<<<<<<< HEAD:ArduCopter/flight_mode.pde
+=======
 // notify_flight_mode - sets notify object based on flight mode.  Only used for OreoLED notify device
 void Copter::notify_flight_mode(control_mode_t mode) {
     switch(mode) {
@@ -341,6 +357,7 @@ void Copter::notify_flight_mode(control_mode_t mode) {
     }
 }
 
+>>>>>>> refs/remotes/origin/master:ArduCopter/flight_mode.cpp
 //
 // print_flight_mode - prints flight mode to serial port.
 //

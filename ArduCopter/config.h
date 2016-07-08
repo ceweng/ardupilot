@@ -49,10 +49,41 @@
 
 #define MAGNETOMETER ENABLED
 
+<<<<<<< HEAD
+#if HAL_CPU_CLASS < HAL_CPU_CLASS_75
+ # define PARACHUTE DISABLED
+ # define AC_RALLY DISABLED
+ # define CLI_ENABLED           DISABLED
+ # define FRSKY_TELEM_ENABLED   DISABLED
+#endif
+
+// disable sonar on APM1 and TradHeli/APM2
+#if (CONFIG_HAL_BOARD == HAL_BOARD_APM1 || (CONFIG_HAL_BOARD == HAL_BOARD_APM2 && FRAME_CONFIG == HELI_FRAME))
+ # define CONFIG_SONAR          DISABLED
+#endif
+
+#if HAL_CPU_CLASS < HAL_CPU_CLASS_75 || CONFIG_HAL_BOARD == HAL_BOARD_AVR_SITL
+ // low power CPUs (APM1, APM2 and SITL)
+ # define MAIN_LOOP_RATE    100
+ # define MAIN_LOOP_SECONDS 0.01
+ # define MAIN_LOOP_MICROS  10000
+#elif CONFIG_HAL_BOARD == HAL_BOARD_LINUX
+ // Linux boards
+ # define MAIN_LOOP_RATE    200
+ # define MAIN_LOOP_SECONDS 0.005
+ # define MAIN_LOOP_MICROS  5000
+#else
+ // high power CPUs (Flymaple, PX4, Pixhawk, VRBrain)
+ # define MAIN_LOOP_RATE    400
+ # define MAIN_LOOP_SECONDS 0.0025
+ # define MAIN_LOOP_MICROS  2500
+#endif
+=======
 // run at 400Hz on all systems
 # define MAIN_LOOP_RATE    400
 # define MAIN_LOOP_SECONDS 0.0025f
 # define MAIN_LOOP_MICROS  2500
+>>>>>>> refs/remotes/origin/master
 
 //////////////////////////////////////////////////////////////////////////////
 // FRAME_CONFIG
@@ -175,7 +206,11 @@
 
 // prearm GPS hdop check
 #ifndef GPS_HDOP_GOOD_DEFAULT
+<<<<<<< HEAD
+ # define GPS_HDOP_GOOD_DEFAULT         230     // minimum hdop that represents a good position.  used during pre-arm checks if fence is enabled
+=======
  # define GPS_HDOP_GOOD_DEFAULT         140     // minimum hdop that represents a good position.  used during pre-arm checks if fence is enabled
+>>>>>>> refs/remotes/origin/master
 #endif
 
 // GCS failsafe
@@ -219,12 +254,41 @@
   #define PREARM_MAX_ACCEL_VECTOR_DIFF      0.70f    // pre arm accel check will fail if primary and backup accelerometer vectors differ by 0.7m/s/s
 #endif
 
+<<<<<<< HEAD
+// pre-arm baro vs inertial nav max alt disparity
+#ifndef PREARM_MAX_ALT_DISPARITY_CM
+ # define PREARM_MAX_ALT_DISPARITY_CM       200     // barometer and inertial nav altitude must be within this many centimeters
+#endif
+
+// pre-arm check max velocity
+#ifndef PREARM_MAX_VELOCITY_CMS
+ # define PREARM_MAX_VELOCITY_CMS           50.0f   // vehicle must be travelling under 50cm/s before arming
+=======
 // arming check's maximum acceptable rotation rate difference (in rad/sec) between primary and backup gyros
 #ifndef PREARM_MAX_GYRO_VECTOR_DIFF
   #define PREARM_MAX_GYRO_VECTOR_DIFF       0.0873f  // pre arm gyro check will fail if primary and backup gyro vectors differ by 0.0873 rad/sec (=5deg/sec)
+>>>>>>> refs/remotes/origin/master
+#endif
+
+// arming check's maximum acceptable accelerometer vector difference (in m/s/s) between primary and backup accelerometers
+#ifndef PREARM_MAX_ACCEL_VECTOR_DIFF
+  #define PREARM_MAX_ACCEL_VECTOR_DIFF  1.0f    // pre arm accel check will fail if primary and backup accelerometer vectors differ by 1m/s/s
+#endif
+
+// arming check's maximum acceptable rotation rate difference (in rad/sec) between primary and backup gyros
+#ifndef PREARM_MAX_GYRO_VECTOR_DIFF
+  #define PREARM_MAX_GYRO_VECTOR_DIFF   0.35f   // pre arm gyro check will fail if primary and backup gyro vectors differ by 0.35 rad/sec (=20deg/sec)
 #endif
 
 //////////////////////////////////////////////////////////////////////////////
+<<<<<<< HEAD
+//  EKF & DCM Checker
+#ifndef EKFCHECK_THRESHOLD_DEFAULT
+ # define EKFCHECK_THRESHOLD_DEFAULT    0.8f    // EKF checker's default compass and velocity variance above which the EKF's horizontal position will be considered bad
+#endif
+#ifndef DCMCHECK_THRESHOLD_DEFAULT
+ # define DCMCHECK_THRESHOLD_DEFAULT    0.8f    // DCM checker's default yaw error threshold above which we will abandon horizontal position hold.  The units are sin(angle) so 0.8 = about 60degrees of error
+=======
 //  EKF Failsafe
 #ifndef FS_EKF_ACTION_DEFAULT
  # define FS_EKF_ACTION_DEFAULT         FS_EKF_ACTION_LAND  // EKF failsafe triggers land by default
@@ -235,6 +299,7 @@
 
 #ifndef EKF_ORIGIN_MAX_DIST_M
  # define EKF_ORIGIN_MAX_DIST_M         50000   // EKF origin and waypoints (including home) must be within 50km
+>>>>>>> refs/remotes/origin/master
 #endif
 
 //////////////////////////////////////////////////////////////////////////////
@@ -258,6 +323,11 @@
   # define COMPASS_OFFSETS_MAX          500
  #endif
 #endif
+
+// arming check's maximum acceptable vector difference between internal and external compass after vectors are normalized to field length of 1.0
+#ifndef COMPASS_ACCEPTABLE_VECTOR_DIFF
+  #define COMPASS_ACCEPTABLE_VECTOR_DIFF    0.75    // pre arm compass check will fail if internal vs external compass direction differ by more than 45 degrees
+ #endif
 
 //////////////////////////////////////////////////////////////////////////////
 //  OPTICAL_FLOW
@@ -361,8 +431,31 @@
 #ifndef LAND_START_ALT
  # define LAND_START_ALT 1000         // altitude in cm where land controller switches to slow rate of descent
 #endif
+<<<<<<< HEAD
+#ifndef LAND_DETECTOR_TRIGGER
+ # define LAND_DETECTOR_TRIGGER 50    // number of 50hz iterations with near zero climb rate and low throttle that triggers landing complete.
+#endif
+#ifndef LAND_DETECTOR_MAYBE_TRIGGER
+ # define LAND_DETECTOR_MAYBE_TRIGGER   10  // number of 50hz iterations with near zero climb rate and low throttle that means we might be landed (used to reset horizontal position targets to prevent tipping over)
+#endif
+#ifndef LAND_DETECTOR_CLIMBRATE_MAX
+# define LAND_DETECTOR_CLIMBRATE_MAX    30  // vehicle climb rate must be between -30 and +30 cm/s
+#endif
+#ifndef LAND_DETECTOR_BARO_CLIMBRATE_MAX
+# define LAND_DETECTOR_BARO_CLIMBRATE_MAX   150  // barometer climb rate must be between -150cm/s ~ +150cm/s
+#endif
+#ifndef LAND_DETECTOR_DESIRED_CLIMBRATE_MAX
+# define LAND_DETECTOR_DESIRED_CLIMBRATE_MAX    -20    // vehicle desired climb rate must be below -20cm/s
+#endif
+#ifndef LAND_DETECTOR_ROTATION_MAX
+ # define LAND_DETECTOR_ROTATION_MAX    0.50f   // vehicle rotation must be below 0.5 rad/sec (=30deg/sec for) vehicle to consider itself landed
+#endif
+#ifndef LAND_REQUIRE_MIN_THROTTLE_TO_DISARM // require pilot to reduce throttle to minimum before vehicle will disarm
+ # define LAND_REQUIRE_MIN_THROTTLE_TO_DISARM ENABLED
+=======
 #ifndef LAND_REQUIRE_MIN_THROTTLE_TO_DISARM
  # define LAND_REQUIRE_MIN_THROTTLE_TO_DISARM DISABLED  // we do not require pilot to reduce throttle to minimum before vehicle will disarm in AUTO, LAND or RTL
+>>>>>>> refs/remotes/origin/master
 #endif
 #ifndef LAND_REPOSITION_DEFAULT
  # define LAND_REPOSITION_DEFAULT   1   // by default the pilot can override roll/pitch during landing
@@ -501,8 +594,49 @@
 //////////////////////////////////////////////////////////////////////////////
 // Loiter position control gains
 //
+<<<<<<< HEAD
+
+#ifndef RATE_ROLL_P
+ # define RATE_ROLL_P        		0.150f
+#endif
+#ifndef RATE_ROLL_I
+ # define RATE_ROLL_I        		0.100f
+#endif
+#ifndef RATE_ROLL_D
+ # define RATE_ROLL_D        		0.004f
+#endif
+#ifndef RATE_ROLL_IMAX
+ # define RATE_ROLL_IMAX         	1000
+#endif
+
+#ifndef RATE_PITCH_P
+ # define RATE_PITCH_P       		0.150f
+#endif
+#ifndef RATE_PITCH_I
+ # define RATE_PITCH_I       		0.100f
+#endif
+#ifndef RATE_PITCH_D
+ # define RATE_PITCH_D       		0.004f
+#endif
+#ifndef RATE_PITCH_IMAX
+ # define RATE_PITCH_IMAX        	1000
+#endif
+
+#ifndef RATE_YAW_P
+ # define RATE_YAW_P              	0.200f
+#endif
+#ifndef RATE_YAW_I
+ # define RATE_YAW_I              	0.020f
+#endif
+#ifndef RATE_YAW_D
+ # define RATE_YAW_D              	0.000f
+#endif
+#ifndef RATE_YAW_IMAX
+ # define RATE_YAW_IMAX            	1000
+=======
 #ifndef POS_XY_P
  # define POS_XY_P             	1.0f
+>>>>>>> refs/remotes/origin/master
 #endif
 
 //////////////////////////////////////////////////////////////////////////////
@@ -556,15 +690,40 @@
  # define ALT_HOLD_P            1.0f
 #endif
 
+<<<<<<< HEAD
+#ifndef THR_DZ_DEFAULT
+# define THR_DZ_DEFAULT         100             // the deadzone above and below mid throttle while in althold or loiter
+=======
 // Velocity (vertical) control gains
 #ifndef VEL_Z_P
  # define VEL_Z_P       5.0f
+>>>>>>> refs/remotes/origin/master
 #endif
 
 // Accel (vertical) control gains
 #ifndef ACCEL_Z_P
  # define ACCEL_Z_P     0.50f
 #endif
+<<<<<<< HEAD
+
+// RATE control
+#ifndef THROTTLE_RATE_P
+ # define THROTTLE_RATE_P       5.0f
+#endif
+
+// Throttle Accel control
+#ifndef THROTTLE_ACCEL_P
+ # define THROTTLE_ACCEL_P      0.50f
+#endif
+#ifndef THROTTLE_ACCEL_I
+ # define THROTTLE_ACCEL_I      1.00f
+#endif
+#ifndef THROTTLE_ACCEL_D
+ # define THROTTLE_ACCEL_D      0.0f
+#endif
+#ifndef THROTTLE_ACCEL_IMAX
+ # define THROTTLE_ACCEL_IMAX   800
+=======
 #ifndef ACCEL_Z_I
  # define ACCEL_Z_I     1.00f
 #endif
@@ -576,6 +735,7 @@
 #endif
 #ifndef ACCEL_Z_FILT_HZ
  # define ACCEL_Z_FILT_HZ   20.0f
+>>>>>>> refs/remotes/origin/master
 #endif
 
 // default maximum vertical velocity and acceleration the pilot may request
@@ -595,10 +755,13 @@
  # define ALT_HOLD_ACCEL_MAX 250    // if you change this you must also update the duplicate declaration in AC_WPNav.h
 #endif
 
+<<<<<<< HEAD
+=======
 #ifndef AUTO_DISARMING_DELAY
 # define AUTO_DISARMING_DELAY  10
 #endif
 
+>>>>>>> refs/remotes/origin/master
 //////////////////////////////////////////////////////////////////////////////
 // Dataflash logging control
 //

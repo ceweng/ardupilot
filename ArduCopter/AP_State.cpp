@@ -99,7 +99,36 @@ void Copter::set_failsafe_gcs(bool b)
 
 // ---------------------------------------------
 
+<<<<<<< HEAD:ArduCopter/AP_State.pde
+    if(b){
+        Log_Write_Event(DATA_LAND_COMPLETE);
+    }else{
+        Log_Write_Event(DATA_NOT_LANDED);
+    }
+    ap.land_complete = b;
+}
+
+// ---------------------------------------------
+
+// set land complete maybe flag
+void set_land_complete_maybe(bool b)
+{
+    // if no change, exit immediately
+    if (ap.land_complete_maybe == b)
+        return;
+
+    if (b) {
+        Log_Write_Event(DATA_LAND_COMPLETE_MAYBE);
+    }
+    ap.land_complete_maybe = b;
+}
+
+// ---------------------------------------------
+
+void set_pre_arm_check(bool b)
+=======
 void Copter::set_pre_arm_check(bool b)
+>>>>>>> refs/remotes/origin/master:ArduCopter/AP_State.cpp
 {
     if(ap.pre_arm_check != b) {
         ap.pre_arm_check = b;
